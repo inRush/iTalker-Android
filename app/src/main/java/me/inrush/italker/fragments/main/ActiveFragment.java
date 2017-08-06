@@ -20,4 +20,8 @@ public class ActiveFragment extends Fragment {
         return R.layout.fragment_active;
     }
 
+    @Override
+    protected void initData() {
+        super.initData();
+    }
 }

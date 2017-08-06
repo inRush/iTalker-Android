@@ -21,6 +21,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import me.inrush.common.app.Activity;
 import me.inrush.common.widget.PortraitView;
+import me.inrush.italker.activities.AccountActivity;
 import me.inrush.italker.fragments.main.ActiveFragment;
 import me.inrush.italker.fragments.main.ContactFragment;
 import me.inrush.italker.fragments.main.GroupFragment;
@@ -86,13 +87,13 @@ public class MainActivity extends Activity
     }
 
     @OnClick(R.id.im_search)
-    void onSearchMenuClick(View view) {
+    void onSearchMenuClick() {
 
     }
 
     @OnClick(R.id.btn_action)
-    void onActionClick(View view) {
-
+    void onActionClick() {
+        AccountActivity.show(this);
     }
 
     /**

@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 /**
+ * 正方形控件
  * @author inrush
  * @date 2017/8/5.
  * @package me.inrush.common.widget

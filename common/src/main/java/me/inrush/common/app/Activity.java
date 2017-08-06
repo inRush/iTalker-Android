@@ -83,6 +83,7 @@ public abstract class Activity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // 得到当前Activity下所有的Fragment
+        @SuppressWarnings("RestrictedApi")
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
 
         // 判断是否为空

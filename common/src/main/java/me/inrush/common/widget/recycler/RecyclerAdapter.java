@@ -22,13 +22,33 @@ import me.inrush.common.R;
  */
 
 public abstract class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder<T>>
-        implements View.OnClickListener, View.OnLongClickListener, AdapterCallback {
+        implements
+        View.OnClickListener, // 点击事件监听器接口
+        View.OnLongClickListener, // 长按事件监听器接口
+        AdapterCallback<T> // Adapter更新接口
+{
 
+    /**
+     * 自定义监听器
+     *
+     * @param <T> 泛型
+     */
+    public interface AdapterListener<T> {
+        // 当Cell点击时触发
+        void onItemClick(RecyclerAdapter.ViewHolder holder, T data);
+
+        // 当Cell长按时触发
+        void onItemLongClick(RecyclerAdapter.ViewHolder holder, T data);
+    }
+
+    // 数据列表
     private final List<T> mDataList;
+    // Item点击事件监听器
     private AdapterListener<T> mListener = null;
 
     /**
      * 构成函数
+     *
      * @param dataList 数据
      * @param listener 监听器
      */
@@ -169,7 +189,7 @@ public abstract class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAd
     }
 
     /**
-     * 删除操作
+     * 删除列表数据操作
      */
     public void clear() {
         mDataList.clear();
@@ -188,6 +208,21 @@ public abstract class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAd
         }
         mDataList.addAll(dataList);
         notifyDataSetChanged();
+    }
+
+    /**
+     * 更新Adapter数据
+     * @param data 更新的数据
+     * @param holder ViewHolder
+     */
+    @Override
+    public void update(T data, ViewHolder<T> holder) {
+        int pos = holder.getAdapterPosition();
+        if (pos >= 0) {
+            mDataList.remove(pos);
+            mDataList.add(pos, data);
+            notifyItemChanged(pos);
+        }
     }
 
     @Override
@@ -219,19 +254,6 @@ public abstract class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAd
      */
     public void setListener(AdapterListener<T> listener) {
         this.mListener = listener;
-    }
-
-    /**
-     * 自定义监听器
-     *
-     * @param <T> 泛型
-     */
-    public interface AdapterListener<T> {
-        // 当Cell点击时触发
-        void onItemClick(RecyclerAdapter.ViewHolder holder, T data);
-
-        // 当Cell长按时触发
-        void onItemLongClick(RecyclerAdapter.ViewHolder holder, T data);
     }
 
     /**
@@ -274,6 +296,23 @@ public abstract class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAd
             if (this.callback != null) {
                 this.callback.update(data, this);
             }
+        }
+    }
+
+    /**
+     * 先实现以下,子类继承的时候就不用所有方法都实现了
+     * @param <T> 泛型
+     */
+    public static abstract class AdapterListenerImpl<T> implements AdapterListener<T> {
+
+        @Override
+        public void onItemClick(ViewHolder holder, T data) {
+
+        }
+
+        @Override
+        public void onItemLongClick(ViewHolder holder, T data) {
+
         }
     }
 }
