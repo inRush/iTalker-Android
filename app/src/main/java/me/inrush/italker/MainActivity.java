@@ -22,6 +22,7 @@ import butterknife.OnClick;
 import me.inrush.common.app.Activity;
 import me.inrush.common.widget.PortraitView;
 import me.inrush.italker.activities.AccountActivity;
+import me.inrush.italker.fragments.assist.PermissionsFragment;
 import me.inrush.italker.fragments.main.ActiveFragment;
 import me.inrush.italker.fragments.main.ContactFragment;
 import me.inrush.italker.fragments.main.GroupFragment;
@@ -75,6 +76,8 @@ public class MainActivity extends Activity
                         this.view.setBackground(resource.getCurrent());
                     }
                 });
+
+        PermissionsFragment.havAllPermissions(this,getSupportFragmentManager());
 
     }
 

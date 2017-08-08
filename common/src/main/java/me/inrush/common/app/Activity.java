@@ -15,7 +15,6 @@ import butterknife.Unbinder;
  * @date 2017/7/21.
  * @package me.inrush.common.app
  */
-
 public abstract class Activity extends AppCompatActivity {
 
     protected Unbinder mRootUnbinder;
@@ -102,4 +101,6 @@ public abstract class Activity extends AppCompatActivity {
         super.onBackPressed();
         finish();
     }
+
+
 }
