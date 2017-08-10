@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import net.qiujuer.genius.ui.widget.Button;
+
 import java.util.List;
 
 import me.inrush.common.app.Application;
@@ -31,6 +33,8 @@ public class PermissionsFragment extends BottomSheetDialogFragment
     // 权限回调标识
     private static final int RC = 0x8888;
 
+    private Button mSubmit;
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -43,12 +47,15 @@ public class PermissionsFragment extends BottomSheetDialogFragment
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // 获取根布局
         View root = inflater.inflate(R.layout.fragment_permissions, container, false);
-        root.findViewById(R.id.btn_submit).setOnClickListener(
+        mSubmit = (Button) root.findViewById(R.id.btn_submit);
+
+        mSubmit.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         // 点击按钮时申请权限
                         requestPerm();
+                        mSubmit.setText(getString(R.string.label_permission_process));
                     }
                 }
         );
@@ -68,18 +75,30 @@ public class PermissionsFragment extends BottomSheetDialogFragment
      * @param root 根布局
      */
     private void refreshState(View root) {
-        if(root == null){
+        if (root == null) {
             return;
         }
         Context context = getContext();
+
+        boolean haveNet = haveNetworkPerm(context);
+        boolean haveRead = haveReadPerm(context);
+        boolean haveWrite = haveWritePerm(context);
+        boolean haveRecord = haveRecordAudioPerm(context);
         root.findViewById(R.id.im_state_permission_network)
-                .setVisibility(haveNetworkPerm(context) ? View.VISIBLE : View.GONE);
+                .setVisibility(haveNet ? View.VISIBLE : View.GONE);
         root.findViewById(R.id.im_state_permission_read)
-                .setVisibility(haveReadPerm(context) ? View.VISIBLE : View.GONE);
+                .setVisibility(haveRead ? View.VISIBLE : View.GONE);
         root.findViewById(R.id.im_state_permission_write)
-                .setVisibility(haveWritePerm(context) ? View.VISIBLE : View.GONE);
+                .setVisibility(haveWrite ? View.VISIBLE : View.GONE);
         root.findViewById(R.id.im_state_permission_record_audio)
-                .setVisibility(haveRecordAudioPerm(context) ? View.VISIBLE : View.GONE);
+                .setVisibility(haveWrite ? View.VISIBLE : View.GONE);
+
+        if (haveNet && haveRead && haveWrite && haveRecord) {
+            mSubmit.setText(getString(R.string.label_permission_complete));
+            mSubmit.setClickable(false);
+        }else{
+            mSubmit.setText(getString(R.string.label_permission_submit));
+        }
     }
 
     /**
@@ -207,7 +226,7 @@ public class PermissionsFragment extends BottomSheetDialogFragment
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
         // 如果有没有申请成功的权限存在,则弹出弹出框,用户点击去到设置界面自己打开权限
-        if(EasyPermissions.somePermissionPermanentlyDenied(this,perms)){
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
             new AppSettingsDialog
                     .Builder(this)
                     .build().show();
@@ -224,6 +243,6 @@ public class PermissionsFragment extends BottomSheetDialogFragment
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         // 传递对应的参数,并且告知接受权限处理者是this
-        EasyPermissions.onRequestPermissionsResult(requestCode,permissions,grantResults,this);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 }

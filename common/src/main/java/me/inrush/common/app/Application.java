@@ -19,6 +19,10 @@ public class Application extends android.app.Application {
 
     private static Application instance;
 
+    public static Application getInstance() {
+        return instance;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -104,8 +108,6 @@ public class Application extends android.app.Application {
     public static void showToast(@StringRes int msgId) {
         showToast(instance.getString(msgId));
     }
-
-
 
 
 }

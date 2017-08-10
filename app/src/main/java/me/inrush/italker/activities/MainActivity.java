@@ -1,5 +1,7 @@
-package me.inrush.italker;
+package me.inrush.italker.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.view.Menu;
@@ -21,7 +23,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import me.inrush.common.app.Activity;
 import me.inrush.common.widget.PortraitView;
-import me.inrush.italker.activities.AccountActivity;
+import me.inrush.italker.R;
 import me.inrush.italker.fragments.assist.PermissionsFragment;
 import me.inrush.italker.fragments.main.ActiveFragment;
 import me.inrush.italker.fragments.main.ContactFragment;
@@ -45,6 +47,14 @@ public class MainActivity extends Activity
     FloatActionButton mAction;
 
     private NavHelper<Integer> mNavHelper;
+
+    /**
+     * MainActivity显示的入口
+     * @param context 上下文
+     */
+    public static void show(Context context) {
+        context.startActivity(new Intent(context, MainActivity.class));
+    }
 
     @Override
     protected int getContentLayoutId() {
@@ -77,7 +87,7 @@ public class MainActivity extends Activity
                     }
                 });
 
-        PermissionsFragment.havAllPermissions(this,getSupportFragmentManager());
+
 
     }
 
@@ -125,12 +135,12 @@ public class MainActivity extends Activity
         float transY = 0;
         float rotation = 0;
 
-        if(newTab.extra.equals(R.string.title_home)){
+        if (newTab.extra.equals(R.string.title_home)) {
             transY = Ui.dipToPx(getResources(), 76);
-        }else if (newTab.extra.equals(R.string.title_group)) {
+        } else if (newTab.extra.equals(R.string.title_group)) {
             mAction.setImageResource(R.drawable.ic_group_add);
             rotation = -360;
-        }else{
+        } else {
             mAction.setImageResource(R.drawable.ic_contact_add);
             rotation = 360;
         }

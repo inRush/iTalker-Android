@@ -2,18 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="me.inrush.italker">
 
-    <!--文件读取,存储权限-->
+    <!-- 文件读取,存储权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <!--网络相关权限-->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!-- 网络相关权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
-    <!--录音权限-->
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-
+    <!-- 录音权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:name=".App"
@@ -23,16 +22,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!--注册个推的广播接收器-->
+        <receiver android:name=".MessageReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="1000">
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.${GETUI_APP_ID}"/>
+            </intent-filter>
+        </receiver>
+
         <activity
-            android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main">
+            android:name=".LaunchActivity"
+            android:label="@string/title_activity_launch"
+            android:theme="@style/AppTheme.TransStatusBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Main"/>
         <activity
             android:name=".activities.AccountActivity"
             android:screenOrientation="portrait"
@@ -41,6 +55,10 @@
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.UserActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_user"/>
     </application>
 
 </manifest>

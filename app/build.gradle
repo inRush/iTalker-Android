@@ -10,6 +10,13 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders = [
+                GETUI_APP_ID    : "66NPoKRBeV5mSiJLW6QiU4",
+                GETUI_APP_KEY   : "GjRUJQyFZp9fr0FEkgfxB3",
+                GETUI_APP_SECRET: "EEt88Wqqtl9c1h8DvsiPI3",
+                PACKAGE_NAME    : applicationId
+        ]
     }
     buildTypes {
         release {
@@ -34,4 +41,7 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:support-v4:25.3.1'
     testCompile 'junit:junit:4.12'
+
+    // 个推
+    compile "com.getui:sdk:$rootProject.ext.getuiVersion"
 }

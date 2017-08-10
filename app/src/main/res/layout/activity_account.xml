@@ -5,8 +5,11 @@
     android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/im_bg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:foreground="@color/maskChatHeader"
+        android:scaleType="centerCrop"/>
 
     <FrameLayout
         android:id="@+id/lay_container"
