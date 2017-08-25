@@ -24,7 +24,6 @@ import butterknife.OnClick;
 import me.inrush.common.app.Activity;
 import me.inrush.common.widget.PortraitView;
 import me.inrush.italker.R;
-import me.inrush.italker.fragments.assist.PermissionsFragment;
 import me.inrush.italker.fragments.main.ActiveFragment;
 import me.inrush.italker.fragments.main.ContactFragment;
 import me.inrush.italker.fragments.main.GroupFragment;
@@ -106,7 +105,7 @@ public class MainActivity extends Activity
 
     @OnClick(R.id.btn_action)
     void onActionClick() {
-        AccountActivity.show(this);
+        UserActivity.show(this);
     }
 
     /**

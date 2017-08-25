@@ -16,7 +16,6 @@ import net.qiujuer.genius.ui.compat.UiCompat;
 
 import me.inrush.common.app.Activity;
 import me.inrush.factory.persistence.Account;
-import me.inrush.italker.activities.AccountActivity;
 import me.inrush.italker.activities.MainActivity;
 import me.inrush.italker.fragments.assist.PermissionsFragment;
 
@@ -99,11 +98,12 @@ public class LaunchActivity extends Activity {
     private void reallySkip(){
         // 进行权限检测
         if (PermissionsFragment.havAllPermissions(this, getSupportFragmentManager())) {
-            if (Account.isLogin()) {
-                MainActivity.show(this);
-            } else {
-                AccountActivity.show(this);
-            }
+//            if (Account.isLogin()) {
+//
+//            } else {
+//                AccountActivity.show(this);
+//            }
+            MainActivity.show(this);
             finish();
         }
     }

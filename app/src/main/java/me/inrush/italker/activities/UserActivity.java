@@ -1,5 +1,6 @@
 package me.inrush.italker.activities;
 
+import android.content.Context;
 import android.content.Intent;
 
 import me.inrush.common.app.Activity;
@@ -10,6 +11,9 @@ import me.inrush.italker.fragments.user.UpdateInfoFragment;
 public class UserActivity extends Activity {
     private Fragment mCurrentFragment;
 
+    public static void show(Context context) {
+        context.startActivity(new Intent(context, UserActivity.class));
+    }
     @Override
     protected int getContentLayoutId() {
         return R.layout.activity_user;
